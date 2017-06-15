@@ -1,0 +1,202 @@
+<?php 
+echo $this->doctype(); 
+$currentRoute = $this->getHelperPluginManager()->getServiceLocator()->get('Application')->getMvcEvent()->getRouteMatch();
+?> 
+<html lang="<?php  if($currentRoute) { echo $currentRoute->getParam("lang"); } ?>">
+    <head>
+	<meta name="google-site-verification" content="oKw4RR_KKkN9p3PM3-pUT73hKSautMf2hl0e_EMqJ_w" />
+	<meta name="msvalidate.01" content="D2840EAD9116C0B8B373E2C3C5E6F303" />
+	<meta name="title" content="Réparation de smartphone et tablette" />
+	<meta name="robots" content="index,follow" />
+	<meta name="keywords" content="réparation, smartphone, tablette, iphone, saumsung galaxy, blackberry, htc, lg, nokia, sony, wiko, rapide, france, belgique, allemagne, garantie, expert, certifié" />
+	<meta name="description" content="Réparation de smartphone et tablette : iPhone, Samsung Galaxy, BlackBerry, HTC, LG, Nokia, Sony, Wiko. Réparation rapide, en 20 minutes seulement et une garantie d'un an, techniciens certifiés, partout en France, Belgique et Allemagne" />
+        <?php
+        $this->headTitle('WeFix')->setSeparator(' - ');
+
+        $this->headMeta()->setCharset('UTF-8')
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0');
+
+        if ($currentRoute) {
+            if ($currentRoute->getParam("lang") == 'fr') {
+                $paramsCanonical = $currentRoute->getParams();
+                $routeNameCanonical = $currentRoute->getMatchedRouteName();
+                $canonicalUrl = $this->url($routeNameCanonical, $paramsCanonical, null, true);
+                $canonicalUrl = ($canonicalUrl == '/') ? '/fr/' : $canonicalUrl;
+                echo '<link rel="canonical" href="'.$canonicalUrl.'">';
+            }
+        }
+
+        $this->headLink()
+                //->appendStylesheet($this->StaticResourceUrl('wefix/css/leaflet.css'))
+                ->appendStylesheet($this->StaticResourceUrl('wefix/css/jqueryui/selectmenu/selectmenu.min.css'))
+                ->appendStylesheet($this->StaticResourceUrl('wefix/css/select2/select2.css'))
+                ->appendStylesheet($this->StaticResourceUrl('wefix/css/wefix.css?v=2'))
+                ->appendStylesheet($this->StaticResourceUrl('css/jquery.qtip.min.css'))
+                ->appendStylesheet($this->StaticResourceUrl('css/jHtmlArea.css'));
+
+        $this->headScript()
+                ->appendFile($this->StaticResourceUrl('wefix/js/jquery-1.11.3.min.js'), 'text/javascript')
+                //->appendFile($this->StaticResourceUrl('wefix/js/leaflet.js'), 'text/javascript')
+                ->appendFile('https://maps.google.com/maps/api/js?v=3.2&sensor=false', 'text/javascript')
+                //->appendFile($this->StaticResourceUrl('wefix/js/Google.js'), 'text/javascript')
+                ->appendFile($this->StaticResourceUrl('wefix/js/tinymce/tinymce.min.js'), 'text/javascript')
+                ->appendFile($this->StaticResourceUrl('wefix/js/jquery-ui-select/selectmenu.min.js'), 'text/javascript')
+                ->appendFile($this->StaticResourceUrl('wefix/js/select2/select2.min.js'), 'text/javascript')
+                ->appendFile($this->StaticResourceUrl('wefix/js/bootstrap/bootstrap.min.js'), 'text/javascript')
+                ->appendFile($this->StaticResourceUrl('wefix/js/bootstrap-switch/bootstrap-switch.min.js'), 'text/javascript')
+                ->appendFile($this->StaticResourceUrl('wefix/js/jquery.cycle2.min.js'), 'text/javascript')
+        ?>
+        <?php echo $this->headTitle(); ?> 
+        <?php echo $this->headMeta(); ?> 
+        <?php echo $this->headLink(); ?> 
+        <?php echo $this->headScript(); ?> 
+
+        <link rel="shortcut icon" href="<?php echo $this->StaticResourceUrl('wefix/img/favicon.png'); ?>">
+        <style type="text/css">
+        @font-face{
+            font-family:"HelveticaNeue";
+            src:url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488878/1b950d2a-907a-4888-8056-0d44e8e86338.eot?#iefix'); ?>");
+            src:url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488878/1b950d2a-907a-4888-8056-0d44e8e86338.eot?#iefix'); ?>") format("eot"),
+                url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488878/3a46542f-f429-4821-9a88-62e3be54a640.woff2'); ?>") format("woff2"),
+                url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488878/50ac1699-f3d2-47b6-878f-67a368a17c41.woff'); ?>") format("woff"),
+                url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488878/0be5590f-8353-4ef3-ada1-43ac380859f8.ttf'); ?>") format("truetype");
+           font-weight: 300;
+           font-style: normal;
+        }
+        @font-face{
+            font-family:"HelveticaNeue";
+            src:url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488902/f95f9fc2-ffda-431c-9d6a-2c3668f5b20b.eot?#iefix'); ?>");
+            src:url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488902/f95f9fc2-ffda-431c-9d6a-2c3668f5b20b.eot?#iefix'); ?>") format("eot"),
+                url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488902/5b1fbd62-45dc-4433-a7df-a2b24a146411.woff2'); ?>") format("woff2"),
+                url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488902/050b1948-f226-4d20-a65a-15d8ed031222.woff'); ?>") format("woff"),
+                url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488902/beb88be6-2a60-46fe-914f-6892b3ae46ce.ttf'); ?>") format("truetype");
+           font-weight: 500;
+           font-style: normal;
+        }
+        @font-face{
+            font-family:"HelveticaNeue";
+            src:url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488914/8a6c3e5a-88a5-430c-91d8-7767ce971d12.eot?#iefix'); ?>");
+            src:url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488914/8a6c3e5a-88a5-430c-91d8-7767ce971d12.eot?#iefix'); ?>") format("eot"),
+                url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488914/531c5a28-5575-4f58-96d4-a80f7b702d7b.woff2'); ?>") format("woff2"),
+                url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488914/439c5962-f9fe-4eaf-a1f6-f41d42edba75.woff'); ?>") format("woff"),
+                url("<?php echo $this->StaticResourceUrl('wefix/fonts/helvetica/1488914/419a308d-b777-4f84-9235-2caf4a98ec23.ttf'); ?>") format("truetype");
+           font-weight: 700;
+           font-style: normal;
+        }                             
+        </style>
+        <script type="text/javascript">
+        var MTUserId='f7547a16-457f-4cf7-918c-66d477d4f755';
+        var MTFontIds = new Array();
+        MTFontIds.push("1488878");
+        MTFontIds.push("1488902");
+        MTFontIds.push("1488914");
+        (function() {
+        var mtTracking = document.createElement('script');
+        mtTracking.type='text/javascript';
+        mtTracking.async='true';
+        mtTracking.src='<?php echo $this->StaticResourceUrl('wefix/js/mtiFontTrackingCode.js'); ?>';
+        (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(mtTracking);
+        })();
+        </script>
+
+    </head>
+    <?php
+    $route = $this->getHelperPluginManager()->getServiceLocator()->get('Application')->getMvcEvent()->getRouteMatch();
+    $routeName = 404;
+    if ($route) {
+        $routeName = str_replace('/', '-', $this->getHelperPluginManager()->getServiceLocator()->get('Application')->getMvcEvent()->getRouteMatch()->getMatchedRouteName());
+    }
+    ?>
+    <body class="page-<?php echo $routeName ?>">
+        <div id="fb-root"></div>
+		<script>(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id;
+			  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.9";
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+        <div class="container site-container" style="overflow: hidden;">
+            <?php //echo $this->render('template/change-name', array('classes' => 'hidden-xs')); ?>
+                <nav id="header" class="navbar navbar-default">
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-primary" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a target="__blank" class="navbar-brand" href="<?php echo $this->url('application', array(), null, true); ?>" title="Wefix homepage">
+                          <img alt="WeFix logo" src="<?php echo $this->StaticResourceUrl('wefix/img/logo.png'); ?>">
+                      </a>
+                    </div>
+                    
+                    <div class="collapse navbar-collapse" id="navbar-primary">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a target="__blank" title="<?php echo $this->translate('nav_item-title_smartphone'); ?>" href="<?php echo $this->url('application/reparation', array('device' => 'reparation-smartphone'),null, true); ?>">
+                                    <?php echo $this->translate('nav_item_smartphone'); ?>
+                                </a>
+                            </li>
+                            <li>
+                                <a target="__blank" title="<?php echo $this->translate('nav_item-title_tablet'); ?>" href="<?php echo $this->url('application/reparation', array('device' => 'reparation-tablette'), null, true); ?>"><?php echo $this->translate('nav_item_tablet'); ?>
+                                </a>
+                            </li>
+                            <li>
+                                <a target="__blank" title="<?php echo $this->translate('nav_item-title_watch'); ?>" href="<?php echo $this->url('application/reparation', array('device' => 'reparation-watch'), null, true); ?>"><?php echo $this->translate('nav_item_watch'); ?>
+                                </a>
+                            </li>
+                            <li>
+                                <a target="__blank" title="<?php echo $this->translate('nav_item-title_presentation'); ?>" href="<?php echo $this->url('application/page', array('action' => 'presentation'),null, true); ?>"><?php echo $this->translate('nav_item_presentation'); ?>
+                                </a>
+                            </li>
+                            <li>
+                                <a target="__blank" title="<?php echo $this->translate('nav_item-title_boutiques'); ?>" href="<?php echo $this->url('application/page', array('action' => 'boutiques'),null, true); ?>"><?php echo $this->translate('nav_item_boutiques'); ?>
+                                </a>
+                            </li>
+                            <li>
+                                <a target="__blank" title="<?php echo $this->translate('nav_item-title_recrutement'); ?>" href="<?php echo $this->url('application/page', array('action' => 'recrutement'),null, true); ?>"><?php echo $this->translate('nav_item_recrutement'); ?>
+                                </a>
+                            </li>
+                        </ul> 
+                    	<ul class="navbar-right nav navbar-nav" style="margin-top:10px;">
+                            <li>
+                                <div class="fb-like" data-href="https://www.facebook.com/wefix.net/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                
+            <?php echo $this->content ?>
+        </div>
+        
+        <nav id="footer" class="<?php echo ($routeName == 'application' ? 'container' : 'container'); ?> navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-footer">
+                    <span class="sr-only"><?php echo $this->translate('layout_toggle_menu'); ?></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-footer">
+                <p class="navbar-text">© Copyright <?php echo date('Y'); ?></p>
+                <ul class="nav navbar-nav">
+                    <li><a target="__blank" href="<?php echo $this->url('application', array(),null,true); ?>" title="WeFix"><?php echo $this->translate('footer_link_homepage'); ?></a></li>
+                    <li><a target="__blank" href="<?php echo $this->url('application/page', array('action' => 'presentation'), null, true); ?>" title="<?php echo $this->translate('footer_link_presentation'); ?>"><?php echo $this->translate('footer_link_presentation'); ?></a></li>
+                    <li><a target="__blank" href="<?php echo $this->url('application/page', array('action' => 'faq'), null, true); ?>" title="<?php echo $this->translate('footer_link_faq'); ?>"><?php echo $this->translate('footer_link_faq'); ?></a></li>
+                    <li><a target="__blank" href="<?php echo $this->url('application/page', array('action' => 'contact'), null, true); ?>" title="<?php echo $this->translate('footer_link_contact'); ?>"><?php echo $this->translate('footer_link_contact'); ?></a></li>
+                    <li><a target="__blank" href="<?php echo $this->url('application/page', array('action' => 'legal'), null, true); ?>" title="<?php echo $this->translate('footer_link_legal'); ?>"><?php echo $this->translate('footer_link_legal'); ?></a></li>
+                    <li><a target="__blank" href="<?php echo $this->url('application/page', array('action' => 'cgv'), null, true); ?>" title="<?php echo $this->translate('footer_link_cgv'); ?>"><?php echo $this->translate('footer_link_cgv'); ?></a></li>
+                </ul>
+                <div class="nav navbar-nav navbar-right" id="language-switcher"></div>
+            </div>
+        </div>
+    </nav>
+
+    </body>
+</html>
